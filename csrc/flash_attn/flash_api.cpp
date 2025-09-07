@@ -367,7 +367,7 @@ mha_fwd(at::Tensor &q,         // batch_size x seqlen_q x num_heads x round_mult
 
     auto [cc_major, cc_minor] = get_compute_capability(get_current_device());
     bool is_sm75_min = cc_major > 7 || (cc_major == 7 && cc_minor >= 5);
-    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Ampere GPUs or newer.");
+    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Turing GPUs or newer. 1");
 
     auto q_dtype = q.dtype();
     TORCH_CHECK(q_dtype == torch::kFloat16 || q_dtype == torch::kBFloat16,
@@ -539,7 +539,7 @@ mha_varlen_fwd(at::Tensor &q,  // total_q x num_heads x head_size, total_q := \s
 
     auto [cc_major, cc_minor] = get_compute_capability(get_current_device());
     bool is_sm75_min = cc_major > 7 || (cc_major == 7 && cc_minor >= 5);
-    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Ampere GPUs or newer.");
+    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Turing GPUs or newer. 2");
 
     auto q_dtype = q.dtype();
     TORCH_CHECK(q_dtype == torch::kFloat16 || q_dtype == torch::kBFloat16,
@@ -795,7 +795,7 @@ mha_bwd(const at::Tensor &dout,  // batch_size x seqlen_q x num_heads, x multipl
 
     auto [cc_major, cc_minor] = get_compute_capability(get_current_device());
     bool is_sm75_min = cc_major > 7 || (cc_major == 7 && cc_minor >= 5);
-    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Ampere GPUs or newer.");
+    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Turing GPUs or newer. 3");
 
     bool is_dropout = p_dropout > 0.0;
     auto stream = at::cuda::getCurrentCUDAStream().stream();
@@ -1006,7 +1006,7 @@ mha_varlen_bwd(const at::Tensor &dout,  // total_q x num_heads, x head_size
 
     auto [cc_major, cc_minor] = get_compute_capability(get_current_device());
     bool is_sm75_min = cc_major > 7 || (cc_major == 7 && cc_minor >= 5);
-    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Ampere GPUs or newer.");
+    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Turing GPUs or newer. 4");
 
     bool is_dropout = p_dropout > 0.0;
     auto stream = at::cuda::getCurrentCUDAStream().stream();
@@ -1227,7 +1227,7 @@ mha_fwd_kvcache(at::Tensor &q,                 // batch_size x seqlen_q x num_he
 
     auto [cc_major, cc_minor] = get_compute_capability(get_current_device());
     bool is_sm75_min = cc_major > 7 || (cc_major == 7 && cc_minor >= 5);
-    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Ampere GPUs or newer.");
+    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Turing GPUs or newer. 5");
 
     auto q_dtype = q.dtype();
     TORCH_CHECK(q_dtype == torch::kFloat16 || q_dtype == torch::kBFloat16,

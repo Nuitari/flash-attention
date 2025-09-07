@@ -673,8 +673,8 @@ mha_fwd(at::Tensor q,   // (b, s_q, h, d) or (total_q, h, d) if there is cu_seql
         ) {
 
     auto dprops = at::cuda::getCurrentDeviceProperties();
-    bool is_sm8x = dprops->major >= 8;
-    TORCH_CHECK(is_sm8x, "FlashAttention only supports Ampere GPUs or newer.");
+    bool is_sm75_min = dprops->major > 7 || (dprops->major == 7 && dprops->minor >= 5);
+    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Turing GPUs (SM75) or newer. 6");
 
     auto q_type = q.scalar_type();
     TORCH_CHECK(q_type == at::ScalarType::Half || q_type == at::ScalarType::BFloat16 || q_type == at::ScalarType::Float8_e4m3fn,
@@ -1230,7 +1230,6 @@ std::tuple<at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tenso
     std::optional<at::Tensor> seqused_q_, // b. If given, only this many elements of each batch element's queries and outputs are used.
     std::optional<at::Tensor> seqused_k_, // b. If given, only this many elements of each batch element's keys are used.
     std::optional<int64_t> max_seqlen_q_,
-    std::optional<int64_t> max_seqlen_k_,
     std::optional<double> softmax_scale_,
     bool is_causal,
     int64_t window_size_left,
@@ -1241,12 +1240,21 @@ std::tuple<at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tenso
 ) {
 
     #ifdef FLASHATTENTION_DISABLE_BACKWARD
-        TORCH_CHECK(false, "This flash attention build does not support backward.");
-    #endif
+    TORCH_CHECK(false, "Flash-Attention was built with backward disabled");
+    #else
+    auto dprops = at::cuda::getCurrentDeviceProperties();
+    bool is_sm75_min = dprops->major > 7 || (dprops->major == 7 && dprops->minor >= 5);
+    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Turing GPUs (SM75) or newer.");
+
+    auto q_type = q.scalar_type();
+    TORCH_CHECK(q_type == at::ScalarType::Half || q_type == at::ScalarType::BFloat16 || q_type == at::ScalarType::Float8_e4m3fn,
+                "FlashAttention only supports fp16, bf16, and fp8_e4m3 data type");
+    if (dprops->major < 8) {
+        TORCH_CHECK(q_type == at::Scalar    #endif
 
     auto dprops = at::cuda::getCurrentDeviceProperties();
-    bool is_sm8x = dprops->major >= 8;
-    TORCH_CHECK(is_sm8x, "FlashAttention only supports Ampere GPUs or newer.");
+    bool is_sm75_min = dprops->major > 7 || (dprops->major == 7 && dprops->minor >= 5);
+    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Turing GPUs (SM75) or newer. 7");
 
     auto q_type = q.dtype();
     TORCH_CHECK(q_type == torch::kFloat16 || q_type == torch::kBFloat16,
@@ -1524,8 +1532,8 @@ mha_combine(at::Tensor out_partial,         // num_splits x batch_size x seqlen 
             ) {
 
     auto dprops = at::cuda::getCurrentDeviceProperties();
-    bool is_sm8x = dprops->major >= 8;
-    TORCH_CHECK(is_sm8x, "Attention combine function only supports Ampere GPUs or newer.");
+    bool is_sm75_min = dprops->major > 7 || (dprops->major == 7 && dprops->minor >= 5);
+    TORCH_CHECK(is_sm75_min, "FlashAttention only supports Turing GPUs (SM75) or newer. 8");
 
     auto out_partial_type = out_partial.scalar_type();
     TORCH_CHECK(out_partial_type == at::ScalarType::Float, "Attention combine function only support fp32 data type");
@@ -1716,4 +1724,6 @@ TORCH_LIBRARY_IMPL(flash_attn_3, CUDA, m) {
     m.impl("fwd_combine", &mha_combine);
     m.impl("get_scheduler_metadata", &mha_fwd_get_scheduler_metadata);
 }
+
+
 
