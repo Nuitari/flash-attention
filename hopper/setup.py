@@ -196,6 +196,11 @@ def _write_ninja_file(path,
         cuda_compile_rule_sm100 = ['rule cuda_compile_sm100'] + cuda_compile_rule[1:] + [
             f'  command = $nvcc_from_env {nvcc_gendeps} $cuda_cflags -c $in -o $out $cuda_post_cflags_sm100'
         ]
+        cuda_compile_rule_sm75 = ['rule cuda_compile_sm75'] + cuda_compile_rule[1:] + [
+            f'  command = $nvcc_from_env {nvcc_gendeps} $cuda_cflags -c $in -o $out $cuda_post_cflags_sm75'
+        ]
+        cuda_post_cflags_sm75 = [s if 'arch=compute_90a,code=sm_90a' not in s else 'arch=compute_75,code=sm_75' for s in cuda_post_cflags]
+        flags.append(f'cuda_post_cflags_sm75 = {" ".join(cuda_post_cflags_sm75)}')
         cuda_compile_rule.append(
             f'  command = $nvcc_from_env {nvcc_gendeps} $cuda_cflags -c $in -o $out $cuda_post_cflags')
 
@@ -256,6 +261,7 @@ def _write_ninja_file(path,
         blocks.append(cuda_compile_rule_sm80)  # type: ignore[possibly-undefined]
         blocks.append(cuda_compile_rule_sm80_sm90)  # type: ignore[possibly-undefined]
         blocks.append(cuda_compile_rule_sm100)  # type: ignore[possibly-undefined]
+        blocks.append(cuda_compile_rule_sm75)  # type: ignore[possibly-undefined]
     blocks += [devlink_rule, link_rule, build, devlink, link, default]
     content = "\n\n".join("\n".join(b) for b in blocks)
     # Ninja requires a new lines at the end of the .ninja file
@@ -439,6 +445,8 @@ if not SKIP_CUDA_BUILD:
         os.chmod(nvcc_path_new, os.stat(nvcc_path_new).st_mode | stat.S_IEXEC)
 
     cc_flag = []
+    cc_flag.append("-gencode")
+    cc_flag.append("arch=compute_75,code=sm_75")  # Add SM75 support
     cc_flag.append("-gencode")
     cc_flag.append("arch=compute_90a,code=sm_90a")
 

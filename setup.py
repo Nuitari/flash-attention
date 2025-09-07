@@ -176,6 +176,9 @@ if not SKIP_CUDA_BUILD and not IS_ROCM:
                 "Note: make sure nvcc has a supported version by running nvcc -V."
             )
 
+    if "75" in cuda_archs():
+        cc_flag.append("-gencode")
+        cc_flag.append("arch=compute_75,code=sm_75")
     if "80" in cuda_archs():
         cc_flag.append("-gencode")
         cc_flag.append("arch=compute_80,code=sm_80")

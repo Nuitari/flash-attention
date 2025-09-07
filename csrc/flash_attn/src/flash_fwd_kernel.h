@@ -394,10 +394,14 @@ inline __device__ void compute_attn_1rowblock(const Params &params, const int bi
         FLASH_NAMESPACE::cp_async_wait<0>();
         __syncthreads();
         if (n_block > n_block_min) {
-            FLASH_NAMESPACE::copy</*Is_even_MN=*/true, Is_even_K>(gmem_tiled_copy_QKV, tKgK(_, _, _, n_block - 1), tKsK, tKVcKV, tKVpKV);
-            // This cp_async_fence needs to be in the if block, otherwise the synchronization
-            // isn't right and we get race conditions.
-            cute::cp_async_fence();
+            if constexpr (Kernel_traits::Has_cp_async) {
+                FLASH_NAMESPACE::copy</*Is_even_MN=*/true, Is_even_K>(gmem_tiled_copy_QKV, tKgK(_, _, _, n_block - 1), tKsK, tKVcKV, tKVpKV);
+                cute::cp_async_fence();
+            } else {
+                // Synchronous copy for SM75
+                FLASH_NAMESPACE::copy</*Is_even_MN=*/true, Is_even_K>(gmem_tiled_copy_QKV, tKgK(_, _, _, n_block - 1), tKsK, tKVcKV, tKVpKV);
+                __syncthreads();
+            }
         }
 
         mask.template apply_mask</*Causal_mask=*/false>(
@@ -713,7 +717,7 @@ inline __device__ void compute_attn_1rowblock_splitkv(const Params &params, cons
         const index_t row_offset_vnew = bidb * params.vnew_batch_stride
             + ((n_block_max - 1) * kBlockN) * params.vnew_row_stride + (bidh / params.h_h_k_ratio) * params.vnew_head_stride;
         // Subtract seqlen_k_cache * row stride so that conceptually gK and gKnew "line up". When we access them,
-        // e.g. if gK has 128 rows and gKnew has 64 rows, we access gK[:128] and gKNew[128:128 + 64].
+        // e.g. if gK has 128 rows and gKnew has 64 rows, we access gK[:128] and gKnew[128:128 + 64].
         // This maps to accessing the first 64 rows of knew_ptr.
         Tensor gKnew = make_tensor(make_gmem_ptr(reinterpret_cast<Element *>(params.knew_ptr)
                                                 + row_offset_knew - binfo.seqlen_k_cache * params.knew_row_stride),
@@ -943,6 +947,17 @@ inline __device__ void compute_attn_1rowblock_splitkv(const Params &params, cons
         if (block_table == nullptr) {
             tVgV.data() = tVgV.data() + (-int(kBlockN * params.v_row_stride));
         } else {
+            const int block_table_idx_cur = (n_block + 1) * kBlockN / params.page_block_size;
+            const int block_table_offset_cur = (n_block + 1) * kBlockN - block_table_idx_cur * params.page_block_size;
+            const int block_table_idx_next = n_block * kBlockN / params.page_block_size;
+            const int block_table_offset_next = n_block * kBlockN - block_table_idx_next * params.page_block_size;
+            tVgV.data() = tVgV.data() + (block_table[block_table_idx_next] - block_table[block_table_idx_cur]) * params.v_batch_stride + (block_table_offset_next - block_table_offset_cur) * params.v_row_stride;
+        }
+        FLASH_NAMESPACE::copy</*Is_even_MN=*/true, Is_even_K>(gmem_tiled_copy_QKV, tVgV, tVsV, tKVcKV, tKVpKV);
+        cute::cp_async_fence();
+
+        FLASH_NAMESPACE::gemm</*A_in_regs=*/Kernel_traits::Is_Q_in_regs>(
+            acc_s, tSrQ, tSrK, tSsQ, tSsK, tiled_mma, smem_tiled_copy_Q, smem_tiled        } else {
             const int block_table_idx_cur = (n_block + 1) * kBlockN / params.page_block_size;
             const int block_table_offset_cur = (n_block + 1) * kBlockN - block_table_idx_cur * params.page_block_size;
             const int block_table_idx_next = n_block * kBlockN / params.page_block_size;
@@ -1290,4 +1305,5 @@ inline __device__ void combine_attn_seqk_parallel(const Params &params) {
 }
 
 } // namespace FLASH_NAMESPACE
+
 

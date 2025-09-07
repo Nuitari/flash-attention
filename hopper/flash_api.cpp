@@ -618,8 +618,8 @@ mha_fwd_get_scheduler_metadata(
     auto round_multiple = [](int x, int m) { return (x + m - 1) / m * m; };
     params.varlen_sort_batches = !params.is_local; // Use this value for Sort in scheduler template
     params.head_swizzle = params.is_causal || params.is_local; // Use this value for LPT in scheduler template
-    if (scheduler_needs_semaphore || use_prepare_varlen) {   
-        int b_rounded = round_multiple(params.b, 4); // for 16 byte alignment of pointers 
+    if (scheduler_needs_semaphore || use_prepare_varlen) {
+        int b_rounded = round_multiple(params.b, 4); // for 16 byte alignment of pointers
         int num_prepare_batch_vectors = use_prepare_varlen ? 2 : 0;
         if(params.varlen_sort_batches) { num_prepare_batch_vectors += 1; }
         if(params.head_swizzle) { num_prepare_batch_vectors += 1; }
@@ -708,7 +708,10 @@ mha_fwd(at::Tensor q,   // (b, s_q, h, d) or (total_q, h, d) if there is cu_seql
     auto q_type = q.scalar_type();
     TORCH_CHECK(q_type == at::ScalarType::Half || q_type == at::ScalarType::BFloat16 || q_type == at::ScalarType::Float8_e4m3fn,
                 "FlashAttention only supports fp16, bf16, and fp8_e4m3 data type");
-    if (dprops->major < 9) {
+    if (dprops->major < 8) {
+        TORCH_CHECK(q_type == at::ScalarType::Half,
+                    "FlashAttention on Turing cards only supports fp16 data type");
+    } else if (dprops->major < 9) {
         TORCH_CHECK(q_type == at::ScalarType::Half || q_type == at::ScalarType::BFloat16,
                     "FlashAttention on Ampere/Ada cards only supports fp16 and bf16 data type");
     }
@@ -967,7 +970,7 @@ mha_fwd(at::Tensor q,   // (b, s_q, h, d) or (total_q, h, d) if there is cu_seql
             params.cu_seqlens_knew = static_cast<int*>(cu_seqlens_k_new.data_ptr());
         }
     }
-    
+
     bool const use_prepare_varlen = is_varlen;
     params.prepare_varlen_pdl = use_prepare_varlen && params.b <= PREPARE_VARLEN_MAX_BATCHES_1CTA;
     // Temporarily set num_splits_dynamic_ptr to 1 since get_num_splits checks it
@@ -1262,7 +1265,6 @@ std::tuple<at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tenso
     at::Tensor dout,  // (b, s_q, h, dv) or (total_q, h, dv) if there is cu_seqlens_q
     at::Tensor q,     // (b, s_q, h, d) or (total_q, h, d) if there is cu_seqlens_q
     at::Tensor k,     // (b, s_k, h_k, d) or (total_k, h_k, d) if there is cu_seqlens_k
-    at::Tensor v,     // (b, s_k, h_k, dv) or (total_k, h_k, dv) if there is cu_seqlens_k
     at::Tensor out,   // (b, s_q, h, dv) or (total_q, h, dv) if there is cu_seqlens_q
     at::Tensor softmax_lse,    // (b, h, s_q) or (h, total_q) if there is cu_seqlens_q
     std::optional<at::Tensor> dq_,   // (b, s_q, h, d) or (total_q, h, d) if there is cu_seqlens_q
@@ -1759,3 +1761,4 @@ TORCH_LIBRARY_IMPL(flash_attn_3, CUDA, m) {
     m.impl("fwd_combine", &mha_combine);
     m.impl("get_scheduler_metadata", &mha_fwd_get_scheduler_metadata);
 }
+
