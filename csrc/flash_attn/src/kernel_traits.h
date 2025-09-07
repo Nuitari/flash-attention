@@ -15,9 +15,9 @@ using namespace cute;
 template<int kHeadDim_, int kBlockM_, int kBlockN_, int kNWarps_, typename elem_type=cutlass::half_t>
 struct Flash_kernel_traits {
 
-#if defined(__CUDA_ARCH__) &&  __CUDA_ARCH__ >= 800
+#if defined(__CUDA_ARCH__) &&  __CUDA_ARCH__ >= 750  // Changed from 800 to 750
     using Element = elem_type;
-    static constexpr bool Has_cp_async = true;
+    static constexpr bool Has_cp_async = __CUDA_ARCH__ >= 800;  // Only SM80+ has cp.async
 #else
     using Element = cutlass::half_t;
     static constexpr bool Has_cp_async = false;

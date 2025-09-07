@@ -1257,8 +1257,6 @@ inline __device__ void combine_attn_seqk_parallel(const Params &params) {
                     tOrO(i, m, k) += lse_scale * tOrOaccum(i, m, k);
                 }
             }
-        // if (cute::thread0()) { printf("lse_scale = %f, %f\n", sLSE[split][0], sLSE[split][1]); print(tOrOaccum); }
-        }
         tOgOaccum.data() = tOgOaccum.data() + params.b * params.h * params.seqlen_q * params.d_rounded;
     }
     // if (cute::thread0()) { print_tensor(tOrO); }
@@ -1292,3 +1290,4 @@ inline __device__ void combine_attn_seqk_parallel(const Params &params) {
 }
 
 } // namespace FLASH_NAMESPACE
+

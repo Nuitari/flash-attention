@@ -9,7 +9,7 @@ DTYPE_MAP = {
     "bf16": "cutlass::bfloat16_t",
 }
 
-SM = [80]  # Sm80 kernels support up to
+SM = [75, 80]  # Add SM75 support
 HEAD_DIMENSIONS = [32, 64, 96, 128, 192, 256]
 IS_CAUSAL = ["false", "true"]
 NAMESPACE_INCLUDE = '#include "namespace_config.h"\n'
