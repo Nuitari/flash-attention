@@ -9,8 +9,16 @@ DTYPE_MAP = {
     "bf16": "cutlass::bfloat16_t",
 }
 
-SM = [80]  # Sm80 kernels support up to
+SM = [75, 80]  # Add SM75 support
 HEAD_DIMENSIONS = [32, 64, 96, 128, 192, 256]
+
+# SM75 only supports FP16, not BF16
+def get_supported_dtypes(sm):
+    if sm < 80:
+        return ["fp16"]  # Only FP16 for SM75
+    else:
+        return ["fp16", "bf16"]  # Both for SM80+
+
 IS_CAUSAL = ["false", "true"]
 NAMESPACE_INCLUDE = '#include "namespace_config.h"\n'
 
@@ -75,8 +83,10 @@ class Kernel:
 
 def get_all_kernels() -> List[Kernel]:
     for direction in ["fwd", "fwd_split", "bwd"]:
-        for dtype, head_dim, is_causal, sm in itertools.product(DTYPE_MAP.keys(), HEAD_DIMENSIONS, IS_CAUSAL, SM):
-            yield Kernel(sm=sm, dtype=dtype, head_dim=head_dim, is_causal=is_causal, direction=direction)
+        for sm in SM:
+            for head_dim, is_causal in itertools.product(HEAD_DIMENSIONS, IS_CAUSAL):
+                for dtype in get_supported_dtypes(sm):
+                    yield Kernel(sm=sm, dtype=dtype, head_dim=head_dim, is_causal=is_causal, direction=direction)
 
 def write_kernel(kernel: Kernel, autogen_dir: Path) -> None:
     prelude = """// Copyright (c) 2024, Tri Dao.

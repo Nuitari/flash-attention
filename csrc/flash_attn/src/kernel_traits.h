@@ -15,12 +15,14 @@ using namespace cute;
 template<int kHeadDim_, int kBlockM_, int kBlockN_, int kNWarps_, typename elem_type=cutlass::half_t>
 struct Flash_kernel_traits {
 
-#if defined(__CUDA_ARCH__) &&  __CUDA_ARCH__ >= 800
+#if defined(__CUDA_ARCH__) &&  __CUDA_ARCH__ >= 750
     using Element = elem_type;
-    static constexpr bool Has_cp_async = true;
+    static constexpr bool Has_cp_async = __CUDA_ARCH__ >= 800;
+    static constexpr bool Has_bf16 = __CUDA_ARCH__ >= 800;  // BF16 only on SM80+
 #else
     using Element = cutlass::half_t;
     static constexpr bool Has_cp_async = false;
+    static constexpr bool Has_bf16 = false;
 #endif
 
     using ElementAccum = float;
@@ -32,6 +34,9 @@ struct Flash_kernel_traits {
         MMA_Atom<SM80_16x8x16_F32F16F16F32_TN>,
         MMA_Atom<SM80_16x8x16_F32BF16BF16F32_TN>
     >;
+#elif defined(__CUDA_ARCH__) &&  __CUDA_ARCH__ >= 750
+    // SM75 only supports FP16 tensor cores
+    using MMA_Atom_Arch = MMA_Atom<SM75_16x8x8_F32F16F16F32_TN>;
 #else
     using MMA_Atom_Arch = MMA_Atom<SM75_16x8x8_F32F16F16F32_TN>;
 #endif
@@ -156,6 +161,14 @@ struct Flash_fwd_kernel_traits : public Base {
         make_tiled_copy(Copy_Atom<AutoVectorizingCopyWithAssumedAlignment<128>, Element>{},
                         GmemLayoutAtomRotcossin{},
                         Layout<Shape < _1, _8>>{}));  // Val layout, 8 vals per load
+};
+
+// SM75 has smaller shared memory, adjust block sizes
+template<int kHeadDim_, int kBlockM_, int kBlockN_, int kNWarps_, typename elem_type>
+struct Flash_fwd_kernel_traits_sm75 : public Flash_fwd_kernel_traits<kHeadDim_, kBlockM_, kBlockN_, kNWarps_, false, false, elem_type> {
+    // Reduce shared memory usage for SM75
+    static constexpr int kBlockKSmem = kHeadDim_ % 32 == 0 ? 32 : 16;  // Smaller blocks
+    static constexpr int kSwizzle = 1;  // Less swizzling
 };
 
 // Is_V_in_regs is an option to reduce smem usage, but will increase register pressue.

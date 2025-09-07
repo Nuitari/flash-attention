@@ -87,6 +87,19 @@
     }                                        \
   }()
 
+// Add SM75-specific switch that forces FP16
+#define FP16_SWITCH_SM75(COND, ...)          \
+  [&] {                                      \
+    constexpr bool force_fp16 = __CUDA_ARCH__ < 800; \
+    if (COND || force_fp16) {                \
+      using elem_type = cutlass::half_t;     \
+      return __VA_ARGS__();                  \
+    } else {                                 \
+      using elem_type = cutlass::bfloat16_t; \
+      return __VA_ARGS__();                  \
+    }                                        \
+  }()
+
 #define HEADDIM_SWITCH(HEADDIM, ...)   \
   [&] {                                    \
     if (HEADDIM <= 32) {                   \

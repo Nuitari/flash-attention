@@ -43,7 +43,7 @@ __forceinline__ __device__ uint32_t relu2<cutlass::half_t>(const uint32_t x) {
         "{\n" \
         "\t .reg .f16x2 sela;\n" \
         "\t set.gtu.u32.f16x2 sela, %1, %2;\n" \
-        "\t and.b32 %0, sela, %1;\n" 
+        "\t and.b32 %0, sela, %1;\n"
         "}\n" : "=r"(res) : "r"(x), "r"(zero));
 #endif
     return res;
@@ -123,7 +123,7 @@ struct Allreduce {
 
 template<>
 struct Allreduce<2> {
-template<typename T, typename Operator> 
+template<typename T, typename Operator>
 static __device__ __forceinline__ T run(T x, Operator &op) {
     x = op(x, __shfl_xor_sync(uint32_t(-1), x, 1));
     return x;
@@ -278,6 +278,25 @@ __forceinline__ __device__ auto convert_type_relu(Tensor<Engine, Layout> const &
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// Add SM75 fallback for convert_relu2 (no native instruction)
+#if defined(__CUDA_ARCH__) && __CUDA_ARCH__ >= 750 && __CUDA_ARCH__ < 800
+
+template<typename To_type, typename Engine, typename Layout>
+__forceinline__ __device__ auto convert_type_relu_sm75(Tensor<Engine, Layout> const &tensor) {
+    using From_type = typename Engine::value_type;
+    static_assert(std::is_same_v<To_type, cutlass::half_t>);  // Only FP16 on SM75
+    static_assert(std::is_same_v<float, From_type>);
+
+    // Use separate convert + relu for SM75
+    Tensor out = FLASH_NAMESPACE::convert_type<To_type>(tensor);
+    FLASH_NAMESPACE::relu_(out);
+    return out;
+}
+
+#endif
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Blocks until all but N previous cp.async.commit_group operations have committed.
 // This differs from cute::cp_async_wait in that when N = 0 we don't call cp.async.wait_all
 // (which is equivalent to commit_group then wait_group 0).
@@ -288,6 +307,9 @@ CUTE_HOST_DEVICE
 void cp_async_wait() {
 #if defined(CUTE_ARCH_CP_ASYNC_SM80_ENABLED)
     asm volatile("cp.async.wait_group %0;\n" :: "n"(N));
+#else
+    // For SM75 and below, this becomes a no-op since we use synchronous copies
+    __syncthreads();
 #endif
 }
 

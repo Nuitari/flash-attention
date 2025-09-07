@@ -1,0 +1,1775 @@
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim128_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim128_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..b56b168
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim128_bf16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::bfloat16_t, 128, true>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim128<cutlass::bfloat16_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim128_bf16_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim128_bf16_sm75.cu
+new file mode 100644
+index 0000000..a82d58e
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim128_bf16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::bfloat16_t, 128, false>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim128<cutlass::bfloat16_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim128_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim128_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..8e60b04
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim128_fp16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::half_t, 128, true>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim128<cutlass::half_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim128_fp16_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim128_fp16_sm75.cu
+new file mode 100644
+index 0000000..5567cb2
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim128_fp16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::half_t, 128, false>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim128<cutlass::half_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim192_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim192_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..23ecfe8
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim192_bf16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::bfloat16_t, 192, true>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim192<cutlass::bfloat16_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim192_bf16_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim192_bf16_sm75.cu
+new file mode 100644
+index 0000000..823171a
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim192_bf16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::bfloat16_t, 192, false>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim192<cutlass::bfloat16_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim192_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim192_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..3f25fad
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim192_fp16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::half_t, 192, true>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim192<cutlass::half_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim192_fp16_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim192_fp16_sm75.cu
+new file mode 100644
+index 0000000..7de57f4
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim192_fp16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::half_t, 192, false>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim192<cutlass::half_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim256_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim256_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..f5327c9
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim256_bf16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::bfloat16_t, 256, true>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim256<cutlass::bfloat16_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim256_bf16_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim256_bf16_sm75.cu
+new file mode 100644
+index 0000000..62b0533
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim256_bf16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::bfloat16_t, 256, false>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim256<cutlass::bfloat16_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim256_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim256_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..b0b837b
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim256_fp16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::half_t, 256, true>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim256<cutlass::half_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim256_fp16_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim256_fp16_sm75.cu
+new file mode 100644
+index 0000000..f3f05b1
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim256_fp16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::half_t, 256, false>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim256<cutlass::half_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim32_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim32_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..ddf5f1a
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim32_bf16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::bfloat16_t, 32, true>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim32<cutlass::bfloat16_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim32_bf16_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim32_bf16_sm75.cu
+new file mode 100644
+index 0000000..ecd2564
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim32_bf16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::bfloat16_t, 32, false>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim32<cutlass::bfloat16_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim32_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim32_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..684c973
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim32_fp16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::half_t, 32, true>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim32<cutlass::half_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim32_fp16_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim32_fp16_sm75.cu
+new file mode 100644
+index 0000000..f6ba14b
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim32_fp16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::half_t, 32, false>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim32<cutlass::half_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim64_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim64_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..ba2d81f
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim64_bf16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::bfloat16_t, 64, true>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim64<cutlass::bfloat16_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim64_bf16_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim64_bf16_sm75.cu
+new file mode 100644
+index 0000000..a2e7780
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim64_bf16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::bfloat16_t, 64, false>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim64<cutlass::bfloat16_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim64_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim64_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..d65d965
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim64_fp16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::half_t, 64, true>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim64<cutlass::half_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim64_fp16_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim64_fp16_sm75.cu
+new file mode 100644
+index 0000000..d3aa813
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim64_fp16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::half_t, 64, false>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim64<cutlass::half_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim96_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim96_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..7796ccb
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim96_bf16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::bfloat16_t, 96, true>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim96<cutlass::bfloat16_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim96_bf16_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim96_bf16_sm75.cu
+new file mode 100644
+index 0000000..2238ef5
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim96_bf16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::bfloat16_t, 96, false>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim96<cutlass::bfloat16_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim96_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim96_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..6761b3e
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim96_fp16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::half_t, 96, true>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim96<cutlass::half_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_bwd_hdim96_fp16_sm75.cu b/csrc/flash_attn/src/flash_bwd_hdim96_fp16_sm75.cu
+new file mode 100644
+index 0000000..bdad112
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_bwd_hdim96_fp16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_bwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_bwd_<cutlass::half_t, 96, false>(Flash_bwd_params &params, cudaStream_t stream) {
++    run_mha_bwd_hdim96<cutlass::half_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim128_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim128_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..baca477
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim128_bf16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::bfloat16_t, 128, true>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim128<cutlass::bfloat16_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim128_bf16_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim128_bf16_sm75.cu
+new file mode 100644
+index 0000000..230059e
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim128_bf16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::bfloat16_t, 128, false>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim128<cutlass::bfloat16_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim128_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim128_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..ab3ce55
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim128_fp16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::half_t, 128, true>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim128<cutlass::half_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim128_fp16_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim128_fp16_sm75.cu
+new file mode 100644
+index 0000000..0303285
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim128_fp16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::half_t, 128, false>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim128<cutlass::half_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim192_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim192_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..c04b7b9
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim192_bf16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::bfloat16_t, 192, true>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim192<cutlass::bfloat16_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim192_bf16_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim192_bf16_sm75.cu
+new file mode 100644
+index 0000000..72468c3
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim192_bf16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::bfloat16_t, 192, false>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim192<cutlass::bfloat16_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim192_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim192_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..89ffeb8
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim192_fp16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::half_t, 192, true>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim192<cutlass::half_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim192_fp16_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim192_fp16_sm75.cu
+new file mode 100644
+index 0000000..729660e
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim192_fp16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::half_t, 192, false>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim192<cutlass::half_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim256_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim256_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..c200847
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim256_bf16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::bfloat16_t, 256, true>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim256<cutlass::bfloat16_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim256_bf16_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim256_bf16_sm75.cu
+new file mode 100644
+index 0000000..2f8ee24
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim256_bf16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::bfloat16_t, 256, false>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim256<cutlass::bfloat16_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim256_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim256_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..fe8e550
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim256_fp16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::half_t, 256, true>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim256<cutlass::half_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim256_fp16_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim256_fp16_sm75.cu
+new file mode 100644
+index 0000000..6a99c93
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim256_fp16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::half_t, 256, false>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim256<cutlass::half_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim32_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim32_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..8cb6578
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim32_bf16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::bfloat16_t, 32, true>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim32<cutlass::bfloat16_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim32_bf16_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim32_bf16_sm75.cu
+new file mode 100644
+index 0000000..ba7adb8
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim32_bf16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::bfloat16_t, 32, false>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim32<cutlass::bfloat16_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim32_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim32_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..b0cb684
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim32_fp16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::half_t, 32, true>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim32<cutlass::half_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim32_fp16_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim32_fp16_sm75.cu
+new file mode 100644
+index 0000000..cfbcf6c
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim32_fp16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::half_t, 32, false>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim32<cutlass::half_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim64_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim64_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..7d703bb
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim64_bf16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::bfloat16_t, 64, true>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim64<cutlass::bfloat16_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim64_bf16_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim64_bf16_sm75.cu
+new file mode 100644
+index 0000000..e0ab7cb
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim64_bf16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::bfloat16_t, 64, false>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim64<cutlass::bfloat16_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim64_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim64_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..d4c869f
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim64_fp16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::half_t, 64, true>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim64<cutlass::half_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim64_fp16_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim64_fp16_sm75.cu
+new file mode 100644
+index 0000000..fa28635
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim64_fp16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::half_t, 64, false>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim64<cutlass::half_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim96_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim96_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..d7c626c
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim96_bf16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::bfloat16_t, 96, true>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim96<cutlass::bfloat16_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim96_bf16_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim96_bf16_sm75.cu
+new file mode 100644
+index 0000000..9b2d5f7
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim96_bf16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::bfloat16_t, 96, false>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim96<cutlass::bfloat16_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim96_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim96_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..9eb4fdd
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim96_fp16_causal_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::half_t, 96, true>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim96<cutlass::half_t, true>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_hdim96_fp16_sm75.cu b/csrc/flash_attn/src/flash_fwd_hdim96_fp16_sm75.cu
+new file mode 100644
+index 0000000..0a1ea1a
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_hdim96_fp16_sm75.cu
+@@ -0,0 +1,14 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template<>
++void run_mha_fwd_<cutlass::half_t, 96, false>(Flash_fwd_params &params, cudaStream_t stream) {
++    run_mha_fwd_hdim96<cutlass::half_t, false>(params, stream);
++}
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_kernel.h b/csrc/flash_attn/src/flash_fwd_kernel.h
+index d492c87..24ab441 100644
+--- a/csrc/flash_attn/src/flash_fwd_kernel.h
++++ b/csrc/flash_attn/src/flash_fwd_kernel.h
+@@ -394,10 +394,14 @@ inline __device__ void compute_attn_1rowblock(const Params &params, const int bi
+         FLASH_NAMESPACE::cp_async_wait<0>();
+         __syncthreads();
+         if (n_block > n_block_min) {
+-            FLASH_NAMESPACE::copy</*Is_even_MN=*/true, Is_even_K>(gmem_tiled_copy_QKV, tKgK(_, _, _, n_block - 1), tKsK, tKVcKV, tKVpKV);
+-            // This cp_async_fence needs to be in the if block, otherwise the synchronization
+-            // isn't right and we get race conditions.
+-            cute::cp_async_fence();
++            if constexpr (Kernel_traits::Has_cp_async) {
++                FLASH_NAMESPACE::copy</*Is_even_MN=*/true, Is_even_K>(gmem_tiled_copy_QKV, tKgK(_, _, _, n_block - 1), tKsK, tKVcKV, tKVpKV);
++                cute::cp_async_fence();
++            } else {
++                // Synchronous copy for SM75
++                FLASH_NAMESPACE::copy</*Is_even_MN=*/true, Is_even_K>(gmem_tiled_copy_QKV, tKgK(_, _, _, n_block - 1), tKsK, tKVcKV, tKVpKV);
++                __syncthreads();
++            }
+         }
+ 
+         mask.template apply_mask</*Causal_mask=*/false>(
+@@ -713,7 +717,7 @@ inline __device__ void compute_attn_1rowblock_splitkv(const Params &params, cons
+         const index_t row_offset_vnew = bidb * params.vnew_batch_stride
+             + ((n_block_max - 1) * kBlockN) * params.vnew_row_stride + (bidh / params.h_h_k_ratio) * params.vnew_head_stride;
+         // Subtract seqlen_k_cache * row stride so that conceptually gK and gKnew "line up". When we access them,
+-        // e.g. if gK has 128 rows and gKnew has 64 rows, we access gK[:128] and gKNew[128:128 + 64].
++        // e.g. if gK has 128 rows and gKnew has 64 rows, we access gK[:128] and gKnew[128:128 + 64].
+         // This maps to accessing the first 64 rows of knew_ptr.
+         Tensor gKnew = make_tensor(make_gmem_ptr(reinterpret_cast<Element *>(params.knew_ptr)
+                                                 + row_offset_knew - binfo.seqlen_k_cache * params.knew_row_stride),
+@@ -952,6 +956,17 @@ inline __device__ void compute_attn_1rowblock_splitkv(const Params &params, cons
+         FLASH_NAMESPACE::copy</*Is_even_MN=*/true, Is_even_K>(gmem_tiled_copy_QKV, tVgV, tVsV, tKVcKV, tKVpKV);
+         cute::cp_async_fence();
+ 
++        FLASH_NAMESPACE::gemm</*A_in_regs=*/Kernel_traits::Is_Q_in_regs>(
++            acc_s, tSrQ, tSrK, tSsQ, tSsK, tiled_mma, smem_tiled_copy_Q, smem_tiled        } else {
++            const int block_table_idx_cur = (n_block + 1) * kBlockN / params.page_block_size;
++            const int block_table_offset_cur = (n_block + 1) * kBlockN - block_table_idx_cur * params.page_block_size;
++            const int block_table_idx_next = n_block * kBlockN / params.page_block_size;
++            const int block_table_offset_next = n_block * kBlockN - block_table_idx_next * params.page_block_size;
++            tVgV.data() = tVgV.data() + (block_table[block_table_idx_next] - block_table[block_table_idx_cur]) * params.v_batch_stride + (block_table_offset_next - block_table_offset_cur) * params.v_row_stride;
++        }
++        FLASH_NAMESPACE::copy</*Is_even_MN=*/true, Is_even_K>(gmem_tiled_copy_QKV, tVgV, tVsV, tKVcKV, tKVpKV);
++        cute::cp_async_fence();
++
+         FLASH_NAMESPACE::gemm(
+             acc_s, tSrQ, tSrK, tSsQ, tSsK, tiled_mma, smem_tiled_copy_Q, smem_tiled_copy_K,
+             smem_thr_copy_Q, smem_thr_copy_K
+@@ -1257,8 +1272,6 @@ inline __device__ void combine_attn_seqk_parallel(const Params &params) {
+                     tOrO(i, m, k) += lse_scale * tOrOaccum(i, m, k);
+                 }
+             }
+-        // if (cute::thread0()) { printf("lse_scale = %f, %f\n", sLSE[split][0], sLSE[split][1]); print(tOrOaccum); }
+-        }
+         tOgOaccum.data() = tOgOaccum.data() + params.b * params.h * params.seqlen_q * params.d_rounded;
+     }
+     // if (cute::thread0()) { print_tensor(tOrO); }
+@@ -1292,3 +1305,5 @@ inline __device__ void combine_attn_seqk_parallel(const Params &params) {
+ }
+ 
+ } // namespace FLASH_NAMESPACE
++
++
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim128_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim128_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..40559c6
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim128_bf16_causal_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 128, true>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim128_bf16_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim128_bf16_sm75.cu
+new file mode 100644
+index 0000000..48500b8
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim128_bf16_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 128, false>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim128_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim128_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..3559029
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim128_fp16_causal_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 128, true>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim128_fp16_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim128_fp16_sm75.cu
+new file mode 100644
+index 0000000..6aa638d
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim128_fp16_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 128, false>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim192_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim192_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..979deee
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim192_bf16_causal_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 192, true>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim192_bf16_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim192_bf16_sm75.cu
+new file mode 100644
+index 0000000..236365e
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim192_bf16_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 192, false>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim192_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim192_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..9c4420f
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim192_fp16_causal_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 192, true>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim192_fp16_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim192_fp16_sm75.cu
+new file mode 100644
+index 0000000..872f5ce
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim192_fp16_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 192, false>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim256_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim256_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..8fee9f5
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim256_bf16_causal_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 256, true>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim256_bf16_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim256_bf16_sm75.cu
+new file mode 100644
+index 0000000..6adcb1b
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim256_bf16_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 256, false>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim256_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim256_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..df05869
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim256_fp16_causal_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 256, true>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim256_fp16_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim256_fp16_sm75.cu
+new file mode 100644
+index 0000000..51bd8e4
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim256_fp16_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 256, false>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim32_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim32_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..fa340d6
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim32_bf16_causal_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 32, true>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim32_bf16_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim32_bf16_sm75.cu
+new file mode 100644
+index 0000000..0f2adec
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim32_bf16_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 32, false>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim32_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim32_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..3455510
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim32_fp16_causal_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 32, true>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim32_fp16_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim32_fp16_sm75.cu
+new file mode 100644
+index 0000000..ec9523d
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim32_fp16_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 32, false>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim64_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim64_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..750c69f
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim64_bf16_causal_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 64, true>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim64_bf16_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim64_bf16_sm75.cu
+new file mode 100644
+index 0000000..a1b26d8
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim64_bf16_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 64, false>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim64_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim64_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..3061167
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim64_fp16_causal_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 64, true>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim64_fp16_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim64_fp16_sm75.cu
+new file mode 100644
+index 0000000..aeda6bf
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim64_fp16_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 64, false>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim96_bf16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim96_bf16_causal_sm75.cu
+new file mode 100644
+index 0000000..d55eb40
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim96_bf16_causal_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 96, true>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim96_bf16_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim96_bf16_sm75.cu
+new file mode 100644
+index 0000000..a139c07
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim96_bf16_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 96, false>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim96_fp16_causal_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim96_fp16_causal_sm75.cu
+new file mode 100644
+index 0000000..8e66343
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim96_fp16_causal_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 96, true>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/flash_fwd_split_hdim96_fp16_sm75.cu b/csrc/flash_attn/src/flash_fwd_split_hdim96_fp16_sm75.cu
+new file mode 100644
+index 0000000..2a874bf
+--- /dev/null
++++ b/csrc/flash_attn/src/flash_fwd_split_hdim96_fp16_sm75.cu
+@@ -0,0 +1,11 @@
++// Copyright (c) 2024, Tri Dao.
++// Splitting the different head dimensions to different files to speed up compilation.
++// This file is auto-generated. See "generate_kernels.py"
++#include "namespace_config.h"
++#include "flash_fwd_launch_template.h"
++
++namespace FLASH_NAMESPACE {
++
++template void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 96, false>(Flash_fwd_params &params, cudaStream_t stream);
++
++} // namespace FLASH_NAMESPACE
+\ No newline at end of file
+diff --git a/csrc/flash_attn/src/generate_kernels.py b/csrc/flash_attn/src/generate_kernels.py
+index 834bd22..b280efe 100644
+--- a/csrc/flash_attn/src/generate_kernels.py
++++ b/csrc/flash_attn/src/generate_kernels.py
+@@ -9,8 +9,16 @@ DTYPE_MAP = {
+     "bf16": "cutlass::bfloat16_t",
+ }
+ 
+-SM = [80]  # Sm80 kernels support up to
++SM = [75, 80]  # Add SM75 support
+ HEAD_DIMENSIONS = [32, 64, 96, 128, 192, 256]
++
++# SM75 only supports FP16, not BF16
++def get_supported_dtypes(sm):
++    if sm < 80:
++        return ["fp16"]  # Only FP16 for SM75
++    else:
++        return ["fp16", "bf16"]  # Both for SM80+
++
+ IS_CAUSAL = ["false", "true"]
+ NAMESPACE_INCLUDE = '#include "namespace_config.h"\n'
+ 
+@@ -75,8 +83,10 @@ class Kernel:
+ 
+ def get_all_kernels() -> List[Kernel]:
+     for direction in ["fwd", "fwd_split", "bwd"]:
+-        for dtype, head_dim, is_causal, sm in itertools.product(DTYPE_MAP.keys(), HEAD_DIMENSIONS, IS_CAUSAL, SM):
+-            yield Kernel(sm=sm, dtype=dtype, head_dim=head_dim, is_causal=is_causal, direction=direction)
++        for sm in SM:
++            for head_dim, is_causal in itertools.product(HEAD_DIMENSIONS, IS_CAUSAL):
++                for dtype in get_supported_dtypes(sm):
++                    yield Kernel(sm=sm, dtype=dtype, head_dim=head_dim, is_causal=is_causal, direction=direction)
+ 
+ def write_kernel(kernel: Kernel, autogen_dir: Path) -> None:
+     prelude = """// Copyright (c) 2024, Tri Dao.
+diff --git a/csrc/flash_attn/src/kernel_traits.h b/csrc/flash_attn/src/kernel_traits.h
+index 8c08974..4ba1b04 100644
+--- a/csrc/flash_attn/src/kernel_traits.h
++++ b/csrc/flash_attn/src/kernel_traits.h
+@@ -15,12 +15,14 @@ using namespace cute;
+ template<int kHeadDim_, int kBlockM_, int kBlockN_, int kNWarps_, typename elem_type=cutlass::half_t>
+ struct Flash_kernel_traits {
+ 
+-#if defined(__CUDA_ARCH__) &&  __CUDA_ARCH__ >= 800
++#if defined(__CUDA_ARCH__) &&  __CUDA_ARCH__ >= 750
+     using Element = elem_type;
+-    static constexpr bool Has_cp_async = true;
++    static constexpr bool Has_cp_async = __CUDA_ARCH__ >= 800;
++    static constexpr bool Has_bf16 = __CUDA_ARCH__ >= 800;  // BF16 only on SM80+
+ #else
+     using Element = cutlass::half_t;
+     static constexpr bool Has_cp_async = false;
++    static constexpr bool Has_bf16 = false;
+ #endif
+ 
+     using ElementAccum = float;
+@@ -32,6 +34,9 @@ struct Flash_kernel_traits {
+         MMA_Atom<SM80_16x8x16_F32F16F16F32_TN>,
+         MMA_Atom<SM80_16x8x16_F32BF16BF16F32_TN>
+     >;
++#elif defined(__CUDA_ARCH__) &&  __CUDA_ARCH__ >= 750
++    // SM75 only supports FP16 tensor cores
++    using MMA_Atom_Arch = MMA_Atom<SM75_16x8x8_F32F16F16F32_TN>;
+ #else
+     using MMA_Atom_Arch = MMA_Atom<SM75_16x8x8_F32F16F16F32_TN>;
+ #endif
+@@ -158,6 +163,14 @@ struct Flash_fwd_kernel_traits : public Base {
+                         Layout<Shape < _1, _8>>{}));  // Val layout, 8 vals per load
+ };
+ 
++// SM75 has smaller shared memory, adjust block sizes
++template<int kHeadDim_, int kBlockM_, int kBlockN_, int kNWarps_, typename elem_type>
++struct Flash_fwd_kernel_traits_sm75 : public Flash_fwd_kernel_traits<kHeadDim_, kBlockM_, kBlockN_, kNWarps_, false, false, elem_type> {
++    // Reduce shared memory usage for SM75
++    static constexpr int kBlockKSmem = kHeadDim_ % 32 == 0 ? 32 : 16;  // Smaller blocks
++    static constexpr int kSwizzle = 1;  // Less swizzling
++};
++
+ // Is_V_in_regs is an option to reduce smem usage, but will increase register pressue.
+ // No_double_buffer is another option to reduce smem usage, but will slow things down.
+ template<int kHeadDim_, int kBlockM_, int kBlockN_, int kNWarps_,
+diff --git a/csrc/flash_attn/src/static_switch.h b/csrc/flash_attn/src/static_switch.h
+index 70d14da..762d88e 100644
+--- a/csrc/flash_attn/src/static_switch.h
++++ b/csrc/flash_attn/src/static_switch.h
+@@ -87,6 +87,19 @@
+     }                                        \
+   }()
+ 
++// Add SM75-specific switch that forces FP16
++#define FP16_SWITCH_SM75(COND, ...)          \
++  [&] {                                      \
++    constexpr bool force_fp16 = __CUDA_ARCH__ < 800; \
++    if (COND || force_fp16) {                \
++      using elem_type = cutlass::half_t;     \
++      return __VA_ARGS__();                  \
++    } else {                                 \
++      using elem_type = cutlass::bfloat16_t; \
++      return __VA_ARGS__();                  \
++    }                                        \
++  }()
++
+ #define HEADDIM_SWITCH(HEADDIM, ...)   \
+   [&] {                                    \
+     if (HEADDIM <= 32) {                   \
+diff --git a/csrc/flash_attn/src/utils.h b/csrc/flash_attn/src/utils.h
+index a7729ae..d72ce87 100644
+--- a/csrc/flash_attn/src/utils.h
++++ b/csrc/flash_attn/src/utils.h
+@@ -43,7 +43,7 @@ __forceinline__ __device__ uint32_t relu2<cutlass::half_t>(const uint32_t x) {
+         "{\n" \
+         "\t .reg .f16x2 sela;\n" \
+         "\t set.gtu.u32.f16x2 sela, %1, %2;\n" \
+-        "\t and.b32 %0, sela, %1;\n" 
++        "\t and.b32 %0, sela, %1;\n"
+         "}\n" : "=r"(res) : "r"(x), "r"(zero));
+ #endif
+     return res;
+@@ -123,7 +123,7 @@ struct Allreduce {
+ 
+ template<>
+ struct Allreduce<2> {
+-template<typename T, typename Operator> 
++template<typename T, typename Operator>
+ static __device__ __forceinline__ T run(T x, Operator &op) {
+     x = op(x, __shfl_xor_sync(uint32_t(-1), x, 1));
+     return x;
+@@ -278,6 +278,25 @@ __forceinline__ __device__ auto convert_type_relu(Tensor<Engine, Layout> const &
+ 
+ ////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
++// Add SM75 fallback for convert_relu2 (no native instruction)
++#if defined(__CUDA_ARCH__) && __CUDA_ARCH__ >= 750 && __CUDA_ARCH__ < 800
++
++template<typename To_type, typename Engine, typename Layout>
++__forceinline__ __device__ auto convert_type_relu_sm75(Tensor<Engine, Layout> const &tensor) {
++    using From_type = typename Engine::value_type;
++    static_assert(std::is_same_v<To_type, cutlass::half_t>);  // Only FP16 on SM75
++    static_assert(std::is_same_v<float, From_type>);
++
++    // Use separate convert + relu for SM75
++    Tensor out = FLASH_NAMESPACE::convert_type<To_type>(tensor);
++    FLASH_NAMESPACE::relu_(out);
++    return out;
++}
++
++#endif
++
++////////////////////////////////////////////////////////////////////////////////////////////////////
++
+ // Blocks until all but N previous cp.async.commit_group operations have committed.
+ // This differs from cute::cp_async_wait in that when N = 0 we don't call cp.async.wait_all
+ // (which is equivalent to commit_group then wait_group 0).
+@@ -288,6 +307,9 @@ CUTE_HOST_DEVICE
+ void cp_async_wait() {
+ #if defined(CUTE_ARCH_CP_ASYNC_SM80_ENABLED)
+     asm volatile("cp.async.wait_group %0;\n" :: "n"(N));
++#else
++    // For SM75 and below, this becomes a no-op since we use synchronous copies
++    __syncthreads();
+ #endif
+ }
+ 
+diff --git a/hopper/flash_api.cpp b/hopper/flash_api.cpp
+index adb53fd..072ba78 100644
+--- a/hopper/flash_api.cpp
++++ b/hopper/flash_api.cpp
+@@ -618,8 +618,8 @@ mha_fwd_get_scheduler_metadata(
+     auto round_multiple = [](int x, int m) { return (x + m - 1) / m * m; };
+     params.varlen_sort_batches = !params.is_local; // Use this value for Sort in scheduler template
+     params.head_swizzle = params.is_causal || params.is_local; // Use this value for LPT in scheduler template
+-    if (scheduler_needs_semaphore || use_prepare_varlen) {   
+-        int b_rounded = round_multiple(params.b, 4); // for 16 byte alignment of pointers 
++    if (scheduler_needs_semaphore || use_prepare_varlen) {
++        int b_rounded = round_multiple(params.b, 4); // for 16 byte alignment of pointers
+         int num_prepare_batch_vectors = use_prepare_varlen ? 2 : 0;
+         if(params.varlen_sort_batches) { num_prepare_batch_vectors += 1; }
+         if(params.head_swizzle) { num_prepare_batch_vectors += 1; }
+@@ -708,7 +708,10 @@ mha_fwd(at::Tensor q,   // (b, s_q, h, d) or (total_q, h, d) if there is cu_seql
+     auto q_type = q.scalar_type();
+     TORCH_CHECK(q_type == at::ScalarType::Half || q_type == at::ScalarType::BFloat16 || q_type == at::ScalarType::Float8_e4m3fn,
+                 "FlashAttention only supports fp16, bf16, and fp8_e4m3 data type");
+-    if (dprops->major < 9) {
++    if (dprops->major < 8) {
++        TORCH_CHECK(q_type == at::ScalarType::Half,
++                    "FlashAttention on Turing cards only supports fp16 data type");
++    } else if (dprops->major < 9) {
+         TORCH_CHECK(q_type == at::ScalarType::Half || q_type == at::ScalarType::BFloat16,
+                     "FlashAttention on Ampere/Ada cards only supports fp16 and bf16 data type");
+     }
+@@ -967,7 +970,7 @@ mha_fwd(at::Tensor q,   // (b, s_q, h, d) or (total_q, h, d) if there is cu_seql
+             params.cu_seqlens_knew = static_cast<int*>(cu_seqlens_k_new.data_ptr());
+         }
+     }
+-    
++
+     bool const use_prepare_varlen = is_varlen;
+     params.prepare_varlen_pdl = use_prepare_varlen && params.b <= PREPARE_VARLEN_MAX_BATCHES_1CTA;
+     // Temporarily set num_splits_dynamic_ptr to 1 since get_num_splits checks it
+@@ -1262,7 +1265,6 @@ std::tuple<at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tenso
+     at::Tensor dout,  // (b, s_q, h, dv) or (total_q, h, dv) if there is cu_seqlens_q
+     at::Tensor q,     // (b, s_q, h, d) or (total_q, h, d) if there is cu_seqlens_q
+     at::Tensor k,     // (b, s_k, h_k, d) or (total_k, h_k, d) if there is cu_seqlens_k
+-    at::Tensor v,     // (b, s_k, h_k, dv) or (total_k, h_k, dv) if there is cu_seqlens_k
+     at::Tensor out,   // (b, s_q, h, dv) or (total_q, h, dv) if there is cu_seqlens_q
+     at::Tensor softmax_lse,    // (b, h, s_q) or (h, total_q) if there is cu_seqlens_q
+     std::optional<at::Tensor> dq_,   // (b, s_q, h, d) or (total_q, h, d) if there is cu_seqlens_q
+@@ -1759,3 +1761,4 @@ TORCH_LIBRARY_IMPL(flash_attn_3, CUDA, m) {
+     m.impl("fwd_combine", &mha_combine);
+     m.impl("get_scheduler_metadata", &mha_fwd_get_scheduler_metadata);
+ }
++
+diff --git a/hopper/setup.py b/hopper/setup.py
+index 850fb0b..b22f183 100644
+--- a/hopper/setup.py
++++ b/hopper/setup.py
+@@ -196,6 +196,11 @@ def _write_ninja_file(path,
+         cuda_compile_rule_sm100 = ['rule cuda_compile_sm100'] + cuda_compile_rule[1:] + [
+             f'  command = $nvcc_from_env {nvcc_gendeps} $cuda_cflags -c $in -o $out $cuda_post_cflags_sm100'
+         ]
++        cuda_compile_rule_sm75 = ['rule cuda_compile_sm75'] + cuda_compile_rule[1:] + [
++            f'  command = $nvcc_from_env {nvcc_gendeps} $cuda_cflags -c $in -o $out $cuda_post_cflags_sm75'
++        ]
++        cuda_post_cflags_sm75 = [s if 'arch=compute_90a,code=sm_90a' not in s else 'arch=compute_75,code=sm_75' for s in cuda_post_cflags]
++        flags.append(f'cuda_post_cflags_sm75 = {" ".join(cuda_post_cflags_sm75)}')
+         cuda_compile_rule.append(
+             f'  command = $nvcc_from_env {nvcc_gendeps} $cuda_cflags -c $in -o $out $cuda_post_cflags')
+ 
+@@ -256,6 +261,7 @@ def _write_ninja_file(path,
+         blocks.append(cuda_compile_rule_sm80)  # type: ignore[possibly-undefined]
+         blocks.append(cuda_compile_rule_sm80_sm90)  # type: ignore[possibly-undefined]
+         blocks.append(cuda_compile_rule_sm100)  # type: ignore[possibly-undefined]
++        blocks.append(cuda_compile_rule_sm75)  # type: ignore[possibly-undefined]
+     blocks += [devlink_rule, link_rule, build, devlink, link, default]
+     content = "\n\n".join("\n".join(b) for b in blocks)
+     # Ninja requires a new lines at the end of the .ninja file
+@@ -440,6 +446,8 @@ if not SKIP_CUDA_BUILD:
+ 
+     cc_flag = []
+     cc_flag.append("-gencode")
++    cc_flag.append("arch=compute_75,code=sm_75")  # Add SM75 support
++    cc_flag.append("-gencode")
+     cc_flag.append("arch=compute_90a,code=sm_90a")
+ 
+     # HACK: The compiler flag -D_GLIBCXX_USE_CXX11_ABI is set to be the same as
+diff --git a/setup.py b/setup.py
+index a108c41..da33be9 100644
+--- a/setup.py
++++ b/setup.py
+@@ -176,6 +176,9 @@ if not SKIP_CUDA_BUILD and not IS_ROCM:
+                 "Note: make sure nvcc has a supported version by running nvcc -V."
+             )
+ 
++    if "75" in cuda_archs():
++        cc_flag.append("-gencode")
++        cc_flag.append("arch=compute_75,code=sm_75")
+     if "80" in cuda_archs():
+         cc_flag.append("-gencode")
+         cc_flag.append("arch=compute_80,code=sm_80")
+@@ -300,6 +303,10 @@ if not SKIP_CUDA_BUILD and not IS_ROCM:
+                 "csrc/flash_attn/src/flash_fwd_split_hdim192_bf16_causal_sm80.cu",
+                 "csrc/flash_attn/src/flash_fwd_split_hdim256_fp16_causal_sm80.cu",
+                 "csrc/flash_attn/src/flash_fwd_split_hdim256_bf16_causal_sm80.cu",
++                "csrc/flash_attn/src/flash_fwd_hdim64_fp16_sm75.cu",
++                "csrc/flash_attn/src/flash_fwd_hdim128_fp16_sm75.cu",
++                "csrc/flash_attn/src/flash_bwd_hdim64_fp16_sm75.cu",
++                "csrc/flash_attn/src/flash_bwd_hdim128_fp16_sm75.cu",
+             ],
+             extra_compile_args={
+                 "cxx": compiler_c17_flag,
